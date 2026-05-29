@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart To-Do + Feedback</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #74b9ff, #a29bfe);
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Card Layout */
+.container {
+    background: white;
+    max-width: 700px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+}
+
+h1, h2 {
+    color: #2d3436;
+}
+
+/* Inputs */
+input, textarea, select {
+    width: 80%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border-color: #6c5ce7;
+}
+
+/* Button */
+button {
+    padding: 10px 15px;
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #4834d4;
+    transform: scale(1.05);
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th {
+    background: #6c5ce7;
+    color: white;
+}
+
+td, th {
+    padding: 10px;
+}
+
+tr:nth-child(even) {
+    background: #f1f2f6;
+}
+
+/* Priority */
+.high { color: #d63031; font-weight: bold; }
+.medium { color: #e17055; }
+.low { color: #00b894; }
+
+/* Notes */
+textarea {
+    height: 80px;
+}
+
+/* Feedback Message */
+#responseMsg {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Section spacing */
+.section {
+    margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌟 To-Do List</h1>
+
+
+<table>
+    <tr>
+        <th>Done</th>
+        <th>Task</th>
+        <th>Priority</th>
+    </tr>
+
+    <tr>
+        <td><input type="checkbox"></td>
+        <td>Study</td>
+        <td class="high">High</td>
+    </tr>
+
+    <tr>
+        <td><input type="checkbox"></td>
+        <td>Read a book</td>
+        <td class="medium">Medium</td>
+    </tr>
+
+    <tr>
+        <td><input type="checkbox"></td>
+        <td>Drink water</td>
+        <td class="low">Low</td>
+    </tr>
+</table>
+
+<div class="section">
+<h2>📝 Notes</h2>
+<textarea placeholder="Write your notes..."></textarea>
+</div>
+
+<div class="section">
+<h2>💬 Feedback Form</h2>
+
+<form id="feedbackForm">
+    <input type="text" id="name" placeholder="Your Name"><br>
+    <input type="email" id="email" placeholder="Your Email"><br>
+    <textarea id="message" placeholder="Your Feedback"></textarea><br>
+    <button type="submit">Submit Feedback</button>
+</form>
+
+<p id="responseMsg"></p>
+</div>
+
+</div>
+
+<script>
+document.getElementById("feedbackForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let message = document.getElementById("message").value.trim();
+    let response = document.getElementById("responseMsg");
+
+    if (name === "" || email === "" || message === "") {
+        response.style.color = "#d63031";
+        response.innerText = "⚠ Please fill all fields!";
+        return;
+    }
+
+    let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!email.match(pattern)) {
+        response.style.color = "#d63031";
+        response.innerText = "⚠ Enter a valid email!";
+        return;
+    }
+
+    response.style.color = "#00b894";
+    response.innerText = "✅ Feedback submitted successfully!";
+
+    document.getElementById("feedbackForm").reset();
+});
+</script>
+
+</body>
+</html>
